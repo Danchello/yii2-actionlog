@@ -28,6 +28,27 @@ class ActionLogBehavior extends Behavior
     * @var string The message of current action
     */
     public $message = null;
+    
+        /**
+       * @var boolean whether to activate log for the index action.
+       */
+     public $logIndex = false;
+  
+      /**
+       * @var boolean whether to activate log for the create action.
+       */
+
+     public $logCreate = true;
+  
+      /**
+       * @var boolean whether to activate log for the update action.
+       */
+     public $logUpdate = true;
+  
+      /**
+       * @var boolean whether to activate log for the delete action.
+       */
+    public $logDelete = true;
 
     /**
      * @inheritdoc
@@ -44,21 +65,25 @@ class ActionLogBehavior extends Behavior
 
     public function beforeInsert($event)
     {
-        ActionLog::add(ActionLog::LOG_STATUS_INFO, $this->message !== null ? $this->message : __METHOD__);
+        if ($this->logCreate == true) 
+            ActionLog::add(ActionLog::LOG_STATUS_INFO, $this->message !== null ? $this->message : __METHOD__);
     }
 
     public function beforeUpdate($event)
     {
-        ActionLog::add(ActionLog::LOG_STATUS_INFO, $this->message !== null ? $this->message : __METHOD__);
+        if ($this->logUpdate == true) 
+            ActionLog::add(ActionLog::LOG_STATUS_INFO, $this->message !== null ? $this->message : __METHOD__);
     }
 
     public function beforeDelete($event)
     {
+        if ($this->logDelete == true)
         ActionLog::add(ActionLog::LOG_STATUS_INFO, $this->message !== null ? $this->message : __METHOD__);
     }
 
     public function afterFind($event)
     {
-        ActionLog::add(ActionLog::LOG_STATUS_INFO, $this->message !== null ? $this->message : __METHOD__);
+        if ($this->logIndex == true)
+            ActionLog::add(ActionLog::LOG_STATUS_INFO, $this->message !== null ? $this->message : __METHOD__);
     }
 }
