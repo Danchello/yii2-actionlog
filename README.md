@@ -1,3 +1,6 @@
+The only difference is that I have implemented the following pull request
+https://github.com/cakebake/yii2-actionlog/pull/3/commits
+
 Yii2 Action Log
 ===============
 Automatically logs user actions like create, update, delete.
